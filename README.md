@@ -26,7 +26,7 @@ docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHR
 ├── slowfast
 │   └── slowfast.onnx
 └── yolov8
-    └── yolov8n.onn
+    └── yolov8n.onnx
 
 # 3. 安装onnxruntime-musa
 pip install onnxruntime-1.18.1-cp38-cp38-linux_x86_64.whl 
