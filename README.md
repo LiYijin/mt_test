@@ -1,11 +1,12 @@
 # mt_test
-mt test of 8 network and quantization for onnxruntime specific for mt
+
+支持摩尔线程的8个模型和量化模型的测试
 
 ```shell
-## 1. 创建docker 容器
+# 1. 创建docker 容器
 docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHREADS_VISIBLE_DEVICES=all --shm-size=80g ort-musa-cmcc:v0.1-cmcc /bin/bash
 
-## 2. 准备模型
+# 2. 准备模型
 所有模型放入/models中
 
 /models/
@@ -27,10 +28,10 @@ docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHR
 └── yolov8
     └── yolov8n.onn
 
-## 3. 安装onnxruntime-musa
+# 3. 安装onnxruntime-musa
 pip install onnxruntime-1.18.1-cp38-cp38-linux_x86_64.whl 
 
-## 4. 运行每个模型对应的测试脚本
+# 4. 运行每个模型对应的测试脚本
 python test_arcface.py /models/arcface/arcfaceresnet100-8.onnx
 python test_ecapa.py /models/ECAPA/voxceleb_ECAPA512.onnx
 python test_hrnet.py /models/hrnet/hrnet_w18_fp32.onnx
