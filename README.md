@@ -26,12 +26,21 @@ docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHR
 ├── slowfast
 │   └── slowfast.onnx
 └── yolov8
-    └── yolov8n.onnx
+│   └── yolov8n.onnx
+└── resnet-q
+    └── resnet-q.onnx
+    
+# 3. 准备数据集
+所有数据集放入/datasets中
 
-# 3. 安装onnxruntime-musa
+/datasets/
+├── resnet-q
+    └── cifar-100-python.tar.gz
+
+# 4. 安装onnxruntime-musa
 pip install onnxruntime-1.18.1-cp38-cp38-linux_x86_64.whl 
 
-# 4. 运行每个模型对应的测试脚本
+# 5. 运行每个模型对应的测试脚本
 python test_arcface.py /models/arcface/arcfaceresnet100-8.onnx
 python test_ecapa.py /models/ECAPA/voxceleb_ECAPA512.onnx
 python test_hrnet.py /models/hrnet/hrnet_w18_fp32.onnx
@@ -42,4 +51,5 @@ python test_fastspeech2_encoder.py /models/fastspeech2/fastspeech2_csmsc_am_enco
 python test_fastspeech2_decoder.py /models/fastspeech2/fastspeech2_csmsc_am_decoder.onnx
 python test_fastspeech2_postnet.py /models/fastspeech2/fastspeech2_csmsc_am_postnet.onnx
 python test_mb_melgan.py /models/fastspeech2/mb_melgan_csmsc.onnx
+python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datasets/resnet-q
 ```
