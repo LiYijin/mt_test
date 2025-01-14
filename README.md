@@ -37,7 +37,7 @@ python test_ecapa.py /models/ECAPA/voxceleb_ECAPA512.onnx
 python test_hrnet.py /models/hrnet/hrnet_w18_fp32.onnx
 python test_retinaface.py /models/Retinaface/RetinaFace.onnx
 python test_slowfast.py /models/slowfast/slowfast.onnx
-python test_yolov8.py /models/yolov8/test_yolov8.py
+python test_yolov8.py /models/yolov8/yolov8n.onnx
 python test_fastspeech2_encoder.py /models/fastspeech2/fastspeech2_csmsc_am_encoder_infer.onnx
 python test_fastspeech2_decoder.py /models/fastspeech2/fastspeech2_csmsc_am_decoder.onnx
 python test_fastspeech2_postnet.py /models/fastspeech2/fastspeech2_csmsc_am_postnet.onnx
