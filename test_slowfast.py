@@ -43,8 +43,8 @@ def evaluate_hrnet(model_path : str):
     for output in outputs_info:
         output_names.append(output.name)
 
-    warm_up = 0
-    iter = 1
+    warm_up = 10
+    iter = 10
 
 
     cpu_reslut = test_cpu_session.run(output_names, input_dict)
@@ -64,8 +64,6 @@ def evaluate_hrnet(model_path : str):
     
     max_difference = np.max(np.abs(musa_result[0] - cpu_reslut[0]))
     L2norm = np.sum(np.abs(musa_result[0] - cpu_reslut[0])) / musa_result[0].size
-    print(musa_result[0].argmax())
-    print(cpu_reslut[0].argmax())
     
     return max_difference, L2norm
 
