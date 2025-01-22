@@ -13,8 +13,13 @@ ort_type_to_numpy_type_map = {
 
 
 def evaluate_hrnet(model_path : str):
-
-    test_musa_session = ort.InferenceSession(model_path, providers=['MUSAExecutionProvider'])
+    
+    sess_options = ort.SessionOptions()
+    sess_options.optimized_model_filepath = "./opt.onnx"
+    # sess_options.providers=['MUSAExecutionProvider']
+    test_musa_session = ort.InferenceSession(model_path, sess_options)
+    test_musa_session.set_providers(['MUSAExecutionProvider'])
+    
     test_cpu_session = ort.InferenceSession(model_path, providers=['CPUExecutionProvider'])
 
     inputs_info = test_cpu_session.get_inputs()
@@ -38,8 +43,8 @@ def evaluate_hrnet(model_path : str):
     for output in outputs_info:
         output_names.append(output.name)
 
-    warm_up = 10
-    iter = 10
+    warm_up = 0
+    iter = 1
 
 
     cpu_reslut = test_cpu_session.run(output_names, input_dict)
@@ -55,9 +60,13 @@ def evaluate_hrnet(model_path : str):
     max_difference = 0.0
     L2norm = 0.0
 
+    
+    
     max_difference = np.max(np.abs(musa_result[0] - cpu_reslut[0]))
     L2norm = np.sum(np.abs(musa_result[0] - cpu_reslut[0])) / musa_result[0].size
-
+    print(musa_result[0].argmax())
+    print(cpu_reslut[0].argmax())
+    
     return max_difference, L2norm
 
 if __name__ == "__main__":
