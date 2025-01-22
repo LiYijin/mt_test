@@ -31,6 +31,7 @@ docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHR
     └── resnet-q.onnx
 
 # 3. 安装onnxruntime-musa
+pip uninstall onnxruntime
 pip install onnxruntime-1.18.1-cp38-cp38-linux_x86_64.whl 
 
 # 4. 运行8个模型对应的测试脚本
