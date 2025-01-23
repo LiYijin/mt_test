@@ -23,12 +23,13 @@ docker run -it --privileged --shm-size=80G  --pid=host --network=host --env MTHR
 │   └── mb_melgan_csmsc.onnx
 ├── hrnet
 │   └── hrnet_w18_fp32.onnx
+└── resnet-q
+│    └── resnet-q.onnx
 ├── slowfast
 │   └── slowfast.onnx
 └── yolov8
-│   └── yolov8n.onnx
-└── resnet-q
-    └── resnet-q.onnx
+   └── yolov8n.onnx
+
 
 # 3. 安装onnxruntime-musa
 pip uninstall onnxruntime
@@ -49,6 +50,25 @@ python test_mb_melgan.py /models/fastspeech2/mb_melgan_csmsc.onnx
 # 5. 运行量化resnet的测试脚本
 # 安装依赖包
 pip install torchvision
-# 运行量化resnet，其中cifar-100-python.tar.gz会下载并放在指定的/datasets/resnet-q/路径下
+# 运行量化resnet，其中cifar-100-python.tar.gz会被自动下载并放在指定的/datasets/resnet-q/路径下
 python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datasets/resnet-q
 ```
+
+8个网络预期结果如下：
+| 测试脚本                 | 最大差值          | 相对误差                |
+|-----------------------------------|-----------------------------------|
+| test_arcface        | 0.003143132  | 0.0007741070003248751              |
+| test_ecapa          | 0.000914872  | 0.00022674076414356628             |
+| test_hrnet          | 0.01099968   | 0.001766887903213501               |
+| test_retinaface     | 0.09877767   | 0.006807587033226377              |
+| test_slowfast       | 0.007330895  | 0.0011986882239580154             |
+| test_yolov8         |  617.33344   | 2.253497909580499                 |
+| test_fastspeech2_decoder | 0.07310486   | 0.006474185943603516         |
+| test_fastspeech2_encoder | 0.000510931  | 2.24266500061724e-05         |
+| test_fastspeech2_postnet | 0.001757681  | 0.00028014618158340456       |
+| test_mb_melgan           | 1.5662293    | 0.41269554138183595          |
+
+量化模型预期结果如下：
+| 测试脚本            | top-1         | top5          |
+|--------------------|---------------|---------------|
+| test_resnet_q      |   79.81%      |     95.02%     |
