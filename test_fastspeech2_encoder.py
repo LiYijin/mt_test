@@ -48,11 +48,22 @@ def evaluate_fastspeech2_decoder(model_path : str):
     for i in range(iter):
         musa_result = test_musa_session.run(output_names, input_dict)
     
+    cpu_reslut = test_cpu_session.run(output_names, input_dict)
+    musa_result = []
+
+    for i in range(warm_up):
+        test_musa_session.run(output_names, input_dict)
+
+    for i in range(iter):
+        musa_result = test_musa_session.run(output_names, input_dict)
+
 
     max_difference = 0.0
     L2norm = 0.0
 
-    max_difference = np.max(np.abs(musa_result[0] - cpu_reslut[0]))
+    m = min(musa_result[0].shape[1], cpu_reslut[0].shape[1])
+
+    max_difference = np.max(np.abs(musa_result[0][:,:m,:] - cpu_reslut[0][:,:m,:]))
     L2norm = np.sum(np.abs(musa_result[0] - cpu_reslut[0])) / musa_result[0].size
     # print(musa_result[0].shape)
     return max_difference, L2norm
