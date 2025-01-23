@@ -54,7 +54,7 @@ pip install torchvision
 python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datasets/resnet-q
 ```
 
-网络模型预期结果如下：
+8个网络模型预期结果如下：
 | 测试脚本                  | 最大差值  | 相对误差  |
 |--------------------------|----------|-----------|
 | test_arcface             | 0.00314  | 0.0007    |
