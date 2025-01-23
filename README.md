@@ -55,18 +55,18 @@ python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datase
 ```
 
 8个网络模型预期结果如下：
-| 测试脚本                  | 最大差值  | 相对误差  |
-|--------------------------|----------|-----------|
-| test_arcface             | 0.00314  | 0.0007    |
-| test_ecapa               | 0.00091  | 0.0002    |
-| test_hrnet               | 0.01099  | 0.0017    |
-| test_retinaface          | 0.09877  | 0.0068    |
-| test_slowfast            | 0.00733  | 0.0012    |
-| test_yolov8              | 617.333  | 2.2534    |
-| test_fastspeech2_decoder | 0.07310  | 0.0064    |
-| test_fastspeech2_encoder | 0.00051  | 2.24e-05  |
-| test_fastspeech2_postnet | 0.00175  | 0.0002    |
-| test_mb_melgan           | 1.56622  | 0.412     |
+| 测试脚本                  |相对误差   |
+|--------------------------|-----------|
+| test_arcface             |  0.0007   |
+| test_ecapa               | 0.0002    |
+| test_hrnet               | 0.0017    |
+| test_retinaface          | 0.0068    |
+| test_slowfast            | 0.0012    |
+| test_yolov8              | 2.2534    |
+| test_fastspeech2_decoder | 0.0064    |
+| test_fastspeech2_encoder | 2.24e-05  |
+| test_fastspeech2_postnet | 0.0002    |
+| test_mb_melgan           | 0.412     |
 
 
 量化模型预期结果如下：
