@@ -55,18 +55,18 @@ python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datase
 ```
 
 网络模型预期结果如下：
-| 测试脚本                  | 最大差值      | 相对误差                  |
-|--------------------------|------------------------------------------|
-| test_arcface             | 0.003143132  | 0.0007741070003248751     |
-| test_ecapa               | 0.000914872  | 0.00022674076414356628    |
-| test_hrnet               | 0.01099968   | 0.001766887903213501      |
-| test_retinaface          | 0.09877767   | 0.006807587033226377      |
-| test_slowfast            | 0.007330895  | 0.0011986882239580154     |
-| test_yolov8              |  617.33344   | 2.253497909580499         |
-| test_fastspeech2_decoder | 0.07310486   | 0.006474185943603516      |
-| test_fastspeech2_encoder | 0.000510931  | 2.24266500061724e-05      |
-| test_fastspeech2_postnet | 0.001757681  | 0.00028014618158340456    |
-| test_mb_melgan           | 1.5662293    | 0.41269554138183595       |
+| 测试脚本                  | 最大差值  | 相对误差  |
+|--------------------------|----------|-----------|
+| test_arcface             | 0.00314  | 0.0007    |
+| test_ecapa               | 0.00091  | 0.0002    |
+| test_hrnet               | 0.01099  | 0.0017    |
+| test_retinaface          | 0.09877  | 0.0068    |
+| test_slowfast            | 0.00733  | 0.0012    |
+| test_yolov8              | 617.333  | 2.2534    |
+| test_fastspeech2_decoder | 0.07310  | 0.0064    |
+| test_fastspeech2_encoder | 0.00051  | 2.24e-05  |
+| test_fastspeech2_postnet | 0.00175  | 0.0002    |
+| test_mb_melgan           | 1.56622  | 0.412     |
 
 
 量化模型预期结果如下：
