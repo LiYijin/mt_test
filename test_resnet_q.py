@@ -6,6 +6,7 @@ import torchvision.transforms as transforms
 import onnxruntime as ort
 import numpy as np
 import argparse
+import time
 
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('--model', '-M', help='Specify model path of quanted resnet', required=True)
@@ -31,6 +32,8 @@ def evaluate( val_loader):
     top1_correct = 0
     top5_correct = 0
     total = 0
+    total_time = 0.0
+    batch_cnt = 0
     log_iter = 100
     for i, (inputs, targets) in enumerate(val_loader):
         if inputs.shape[0] < 24:
@@ -40,7 +43,9 @@ def evaluate( val_loader):
             last_tag = targets[-1].unsqueeze(0)
             targets = torch.cat((targets, last_tag.repeat(8)), dim=0)
         np_dtype = np.float32
+        start_time = time.time()
         outputs = resnet_test.run(['output'], {'input': np.array(inputs, dtype=np_dtype)})[0]
+        total_time += time.time() - start_time
         outputs = torch.from_numpy(outputs.astype(np.float32))
         
         _, predicted = outputs.topk(5, 1, True, True)
@@ -51,6 +56,8 @@ def evaluate( val_loader):
         
         top1_correct += correct[:1].view(-1).float().sum(0, keepdim=True)
         top5_correct += correct[:5].reshape(-1).float().sum(0, keepdim=True)
+
+        batch_cnt += 1
         # if i % log_iter == 0:
         #     top1_accuracy = 100. * top1_correct / total
         #     top5_accuracy = 100. * top5_correct / total
@@ -58,6 +65,8 @@ def evaluate( val_loader):
         #     print(f'Top-5 accuracy: {top5_accuracy.item():.2f}%')
     top1_accuracy = 100. * top1_correct / total
     top5_accuracy = 100. * top5_correct / total
+
+    print("Batch Size: {}\nTotal Time: {:.2f} Seconds\nLatency: {:.2f} ms / batch".format(batch_cnt, total_time, 1000.0 * total_time / batch_cnt))
 
     return top1_accuracy.item(), top5_accuracy.item()
 
