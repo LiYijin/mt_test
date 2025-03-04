@@ -2,6 +2,7 @@ import onnxruntime as ort
 import numpy as np
 import random
 import sys
+import time
 
 ort_type_to_numpy_type_map = {
             "tensor(int64)": np.longlong,
@@ -41,12 +42,15 @@ def evaluate_hrnet(model_path : str):
 
     cpu_reslut = test_cpu_session.run(output_names, input_dict)
     musa_result = []
+    total_time = 0.0
 
     for i in range(warm_up):
         test_musa_session.run(output_names, input_dict)
 
     for i in range(iter):
+        start_time = time.time()
         musa_result = test_musa_session.run(output_names, input_dict)
+        total_time += time.time() - start_time
     
 
     max_difference = 0.0
@@ -54,6 +58,9 @@ def evaluate_hrnet(model_path : str):
 
     max_difference = np.max(np.abs(musa_result[0] - cpu_reslut[0]))
     L2norm = np.sum(np.abs(musa_result[0] - cpu_reslut[0])) / musa_result[0].size
+
+    print("Batch Size: {}\nTotal Time: {:.2f} Seconds\nLatency: {:.2f} ms / batch".format(iter, total_time, 1000.0 * total_time / iter))
+    
     # print(musa_result[0].shape)
     return max_difference, L2norm
 

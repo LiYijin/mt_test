@@ -42,8 +42,8 @@ python test_hrnet.py /models/hrnet/hrnet_w18_fp32.onnx
 python test_retinaface.py /models/Retinaface/RetinaFace.onnx
 python test_slowfast.py /models/slowfast/slowfast.onnx
 python test_yolov8.py /models/yolov8/yolov8n.onnx
-python test_fastspeech2_encoder.py /models/fastspeech2/fastspeech2_csmsc_am_encoder_infer.onnx
 python test_fastspeech2_decoder.py /models/fastspeech2/fastspeech2_csmsc_am_decoder.onnx
+python test_fastspeech2_encoder.py /models/fastspeech2/fastspeech2_csmsc_am_encoder_infer.onnx
 python test_fastspeech2_postnet.py /models/fastspeech2/fastspeech2_csmsc_am_postnet.onnx
 python test_mb_melgan.py /models/fastspeech2/mb_melgan_csmsc.onnx
 
@@ -73,3 +73,24 @@ python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datase
 | 测试脚本            | top-1         | top5          |
 |--------------------|---------------|---------------|
 | test_resnet_q      |   79.81%      |     95.02%     |
+
+---
+
+2025/03/04 测试结果：
+
+| 测试脚本                  | 相对误差   | 每 batch 处理时间（ms） |
+|--------------------------|-----------|---|
+| test_arcface             | 0.0008 | 24.11 |
+| test_ecapa               | 0.0002 | 7.33 |
+| test_hrnet               | 0.0017 | 50.13 |
+| test_retinaface          | 0.0071 | 23.31 |
+| test_slowfast            | 0.0010 | 593.01 |
+| test_yolov8              | 2.2404 | 13.60 |
+| test_fastspeech2_decoder | 0.0056 | 1.74 |
+| test_fastspeech2_encoder | 2.14e-05 | 341.51 |
+| test_fastspeech2_postnet | 0.0003 | 1.77 |
+| test_mb_melgan           | 0.3473 | 5.69 |
+
+| 测试脚本            | top-1         | top5          | 每 batch 处理时间（ms） |
+|--------------------|---------------|---------------|---|
+| test_resnet_q      |   79.81%      |     95.02%     | 12.26 |
