@@ -1,2 +1,1 @@
-opt.onnx
-run_all.sh
+*.onnx
