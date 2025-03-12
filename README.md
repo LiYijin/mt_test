@@ -72,60 +72,23 @@ pip install torchvision
 python test_resnet_q.py --model /models/resnet-q/resnet-q.onnx --dataset /datasets/resnet-q
 ```
 
-8个网络模型预期结果如下：
-| 测试脚本                  |相对误差   |
-|--------------------------|-----------|
-| test_arcface             |  0.0007   |
-| test_ecapa               | 0.0002    |
-| test_hrnet               | 0.0017    |
-| test_retinaface          | 0.0068    |
-| test_slowfast            | 0.0012    |
-| test_yolov8              | 2.2534    |
-| test_fastspeech2_decoder | 0.0064    |
-| test_fastspeech2_encoder | 2.24e-05  |
-| test_fastspeech2_postnet | 0.0002    |
-| test_mb_melgan           | 0.412     |
+8个网络模型预期结果如下(batch_size=1)：
 
+| 测试脚本                  | 相对误差   | S4000性能（ms/batch） | A100(ms/batch) | 性能对比(S4000/A100)|
+|--------------------------|-----------|---|--|---|
+| test_arcface             | 0.0008    | 24.11 |4.09 | 0.17|
+| test_ecapa               | 0.0002    | 7.33 | 1.30 | 0.18|
+| test_hrnet               | 0.0017    | 50.13 |8.82 | 0.17|
+| test_retinaface          | 0.0071    | 23.31 |5.05 |0.22|
+| test_slowfast            | 0.0010    | 593.01 |11.38 | 0.02|
+| test_yolov8              | 2.2404    | 13.60 | 3.98 |0.29|
+| test_fastspeech2_decoder | 0.0056    | 1.74 |0.23 |0.13|
+| test_fastspeech2_encoder | 2.14e-05  | 341.51 | 36.58 |0.11|
+| test_fastspeech2_postnet | 0.0003    | 1.77 | 0.21 |0.11|
+| test_mb_melgan           | 0.3473    | 5.69   |0.97 |0.17|
 
-量化模型预期结果如下：
-| 测试脚本            | top-1         | top5          |
-|--------------------|---------------|---------------|
-| test_resnet_q      |   79.81%      |     95.02%     |
-
----
-
-2025/03/04 测试结果：
-
-| 测试脚本                  | 相对误差   | 每 batch 处理时间（ms） |
-|--------------------------|-----------|---|
-| test_arcface             | 0.0008    | 24.11 |
-| test_ecapa               | 0.0002    | 7.33 |
-| test_hrnet               | 0.0017    | 50.13 |
-| test_retinaface          | 0.0071    | 23.31 |
-| test_slowfast            | 0.0010    | 593.01 |
-| test_yolov8              | 2.2404    | 13.60 |
-| test_fastspeech2_decoder | 0.0056    | 1.74 |
-| test_fastspeech2_encoder | 2.14e-05  | 341.51 |
-| test_fastspeech2_postnet | 0.0003    | 1.77 |
-| test_mb_melgan           | 0.3473    | 5.69   |
-
-| 测试脚本            | top-1         | top5          | 每 batch 处理时间（ms） |
+| 测试脚本            | top-1         | top5          | MUSA每 batch 处理时间（ms） |
 |--------------------|---------------|---------------|---|
 | test_resnet_q      |   79.81%      |     95.02%     | 12.26 |
 
 ---
-
-2025/03/11 A100 测试结果：
-
-| 测试脚本                  | 相对误差   | 每 batch 处理时间（ms） |
-|--------------------------|-----------|---|
-| test_arcface             | 0.0004 | 4.09 |
-| test_ecapa               | 0.0002 | 1.30 |
-| test_hrnet               | 0.0016 | 8.82 |
-| test_retinaface          | 0.0068 | 5.05 |
-| test_slowfast            | 0.0012 | 11.38 |
-| test_yolov8              | 0.0030 | 3.98 |
-| test_fastspeech2_decoder | 0.0043 | 0.23 |
-| test_fastspeech2_encoder | 2.15e-05 | 36.58 |
-| test_fastspeech2_postnet | 0.0003 | 0.21 |
-| test_mb_melgan           | 0.3987 | 0.97 |
